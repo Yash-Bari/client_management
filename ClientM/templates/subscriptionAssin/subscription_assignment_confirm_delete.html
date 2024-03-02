@@ -1,0 +1,14 @@
+<!-- subscription_assignment_confirm_delete.html -->
+{% extends 'base.html' %}
+
+{% block title %}Confirm Subscription Assignment Deletion{% endblock %}
+
+{% block content %}
+  <h2>Confirm Subscription Assignment Deletion</h2>
+  <p>Are you sure you want to delete the subscription assignment "{{ subscription_assignment.project_name }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="{% url 'subscription_assignment_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}

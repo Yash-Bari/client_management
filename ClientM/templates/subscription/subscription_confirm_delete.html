@@ -1,0 +1,14 @@
+<!-- subscription_confirm_delete.html -->
+{% extends 'base.html' %}
+
+{% block title %}Confirm Subscription Deletion{% endblock %}
+
+{% block content %}
+  <h2>Confirm Subscription Deletion</h2>
+  <p>Are you sure you want to delete subscription "{{ subscription.name }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="{% url 'subscription_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}

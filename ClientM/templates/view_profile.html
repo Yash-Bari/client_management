@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}View Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>View Profile</h2>
+  <div class="profile-info">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <p>{{ user_profile.name }}</p>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <p>{{ user_profile.email }}</p>
+        </div>
+        <div class="form-group">
+          <label for="mobile_number">Mobile Number:</label>
+          <p>{{ user_profile.mobile_number }}</p>
+        </div>
+        <!-- Add other profile fields as needed -->
+      </div>
+      <div class="col-md-6">
+        <div class="profile-picture">
+            {% if user_profile.profile_photo %}
+            <img src="{{ user_profile.profile_photo.url }}" alt="Profile Photo">
+        {% else %}
+            <!-- Display placeholder or default image -->
+            <img src="{% static 'media\default_profile_photo.jpg' %}" alt="Default Profile Photo">
+        {% endif %}
+        
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+</div>
+{% endblock %}

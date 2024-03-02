@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+  <h2>Task List</h2>
+  <a href="{% url 'task_create' %}" class="btn btn-primary mb-2">Create Task</a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Project</th>
+        <th>Description</th>
+        <th>Deadline</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ task.task_name }}</td>
+        <td>{{ task.project_assignment }}</td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.deadline_date }}</td>
+        <td>
+          <a href="{% url 'task_edit' task.id %}" class="btn btn-sm btn-primary">Edit</a>
+          <a href="{% url 'task_delete' task.id %}" class="btn btn-sm btn-danger">Delete</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5">No tasks available</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

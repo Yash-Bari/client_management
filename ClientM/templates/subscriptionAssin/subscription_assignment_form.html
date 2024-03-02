@@ -1,0 +1,20 @@
+<!-- subscription_assignment_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+  {% if form.instance.pk %}
+    Edit Subscription Assignment
+  {% else %}
+    Create Subscription Assignment
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <h2>{% if form.instance.pk %}Edit Subscription Assignment{% else %}Create Subscription Assignment{% endif %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="{% url 'subscription_assignment_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}
