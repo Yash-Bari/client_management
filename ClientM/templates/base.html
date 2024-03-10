@@ -3,46 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Django App{% endblock %}</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
+    <title>{% block title %}Tvita Inc.{% endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Include any additional CSS files or stylesheets here -->
     <style>
-        /* Add custom CSS styles here */
+        /* Custom styles for the sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            width: 250px;
+            background-color: #f8f9fa;
+            padding-top: 60px; /* Adjust according to your navbar height */
+            transition: all 0.3s;
+            z-index: 1000; /* Ensure sidebar is above other content */
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .content {
+            margin-left: 250px;
+            transition: all 0.3s;
+        }
+
+        .content.active {
+            margin-left: 0;
+        }
+
+        /* Overlay to close sidebar */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 900; /* Ensure overlay is below sidebar */
+            display: none;
+        }
     </style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Tvita.</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <a class="navbar-brand" href="#" id="sidebar-toggle">
     <span class="navbar-toggler-icon"></span>
-  </button>
-
+  </a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'client_list' %}">Clients</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'project_list' %}">Projects</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'subscription_list' %}">Subscriptions</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'subscription_assignment_list' %}">Subscription Assignments</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'task_list' %}">Tasks</a>
-      </li>
-      <!-- Add other navigation links here -->
-    </ul>
     <ul class="navbar-nav ml-auto">
       {% if user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'view_profile' %}">View Profile</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
@@ -55,14 +67,49 @@
   </div>
 </nav>
 
-<div class="container mt-4">
+<div class="sidebar" id="sidebar">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'client_list' %}">Clients</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'project_list' %}">Projects</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'subscription_list' %}">Subscriptions</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'subscription_assignment_list' %}">Subscription Assignments</a>
+        </li>
+        <!-- Add other navigation links here -->
+    </ul>
+</div>
+
+<div class="content" id="content">
     {% block content %}
     {% endblock %}
 </div>
 
+<div class="overlay" id="overlay"></div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- Include any additional JavaScript files or libraries here -->
+<script>
+    $(document).ready(function(){
+        // Sidebar toggle functionality
+        $("#sidebar-toggle").click(function(){
+            $(".sidebar").toggleClass("active");
+            $(".content").toggleClass("active");
+            $("#overlay").toggle(); // Toggle overlay
+        });
+
+        // Close sidebar and overlay when clicking outside the sidebar
+        $("#overlay").click(function(){
+            $(".sidebar").removeClass("active");
+            $(".content").removeClass("active");
+            $(this).hide(); // Hide overlay
+        });
+    });
+</script>
+
 </body>
 </html>
