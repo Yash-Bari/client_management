@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Clients',
+    'corsheaders'
     
     
 ]
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'ClientM.urls'
@@ -152,8 +154,16 @@ EMAIL_HOST = 'smtp.google.com'  # Specify your SMTP server address
 EMAIL_PORT = 587  # Specify the port for SMTP (587 is commonly used for TLS)
 EMAIL_USE_TLS = True  # Set to True if your SMTP server requires TLS encryption
 EMAIL_HOST_USER = 'yashbari99@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'your_email_password'  # Your email password or application-specific password
+EMAIL_HOST_PASSWORD = 'vpcu fyjt qyrs yipi'  # Your email password or application-specific password
 DEFAULT_FROM_EMAIL = 'yashbari99@gmail.com'  # The email address to use as the sender by default
 
 # Optionally, you can specify additional email settings such as the email timeout
 EMAIL_TIMEOUT = None  # Set to a number of seconds to specify the email sending timeout
+CORS_ALLOWED_ORIGINS = [
+    'https://tvitacrm-1.onrender.com/',
+    # Add other allowed origins as needed
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://tvitacrm-1.onrender.com/',
+    # Add other trusted origins as needed
+]
