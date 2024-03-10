@@ -159,9 +159,9 @@ DEFAULT_FROM_EMAIL = 'yashbari99@gmail.com'  # The email address to use as the s
 
 # Optionally, you can specify additional email settings such as the email timeout
 EMAIL_TIMEOUT = None  # Set to a number of seconds to specify the email sending timeout
-CORS_ALLOWED_ORIGINS = [
-    'https://tvitacrm-1.onrender.com/',
-    # Add other allowed origins as needed
+CSRF_TRUSTED_ORIGINS = [
+    'https://workspace.ticlub.tech',
+    # Add other trusted origins as needed
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://tvitacrm-1.onrender.com/',
